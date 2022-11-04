@@ -949,7 +949,7 @@ local Speed = createSlider("Speed", Mods, 1, 100, 50)
 AutoFarm.Changed:Connect(function()
 	repeat
 		wait(0.1)
-		game.TweenService:Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(0.2*Speed),{Position = Vector3.new(-87,69,8723)}):Play()
+		game.TweenService:Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(0.2*Speed.Value),{Position = Vector3.new(-87,69,8723)}):Play()
 		wait(0.2*Speed)
 		game.TweenService:Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(0.1),{Position = Vector3.new(-87,-168,8723)}):Play()
 		wait(0.1)
