@@ -934,7 +934,7 @@ end)
 local Option,Update = createDropdown("Dropdown", Mods, {"Opt1", "Opt2"})
 
 Update.MouseButton1Click:Connect(function()
-	print(Option.Value)
+     print(Option.Value)
 end)
 
 local Value = createSlider("Slider", Mods, 100, 500, 100)
@@ -957,4 +957,22 @@ AutoFarm.Changed:Connect(function()
 		game.TweenService:Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(0.1),{Position = Vector3.new(-46,-359,9504)}):Play()
 		game.Players.LocalPlayer.CharacterAdded:Wait()
 	until not AutoFarm.Value
+end)
+
+local AutoOpen = createToggle("Auto Chest Opener", Mods)
+local Chests,Back = createDropdown("Chests",Mods,{"Common Chest","Uncommon Chest","Rare Chest", "Epic Chest", "Legendary Chest"})
+
+Back.MouseButton1Click:Connect(function()
+    Chests.Value = "Common Chest"
+end)
+
+AutoOpen.Changed:Connect(function()
+    repeat
+        local args = {
+            [1] = "Legendary Chest",
+            [2] = 1,
+        }
+         workspace.ItemBoughtFromShop:InvokeServer(unpack(args))
+
+    until not AutoOpen.Value
 end)
