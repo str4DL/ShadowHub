@@ -61,6 +61,7 @@ Menu.Name = "Menu"
 Menu.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 Menu.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 Menu.ResetOnSpawn = false
+Menu.Name = math.random(111111111, 999999999)
 
 Menu_2.Name = "Menu"
 Menu_2.Parent = Menu
@@ -995,3 +996,27 @@ AutoOpen.Changed:Connect(function()
 
     until not AutoOpen.Value
 end)
+
+--do not Touch
+local secs = 0
+local mins = 0
+repeat
+
+	wait(1)
+	if secs == 59 then
+		secs = 0
+		mins = mins + 1
+	else
+		secs = secs + 1
+	end
+
+	if secs < 10 then
+		TimeUsed.Text = mins..":0"..secs
+	elseif secs < 10 and mins < 10 then
+		TimeUsed.Text = "0"..mins..":0"..secs
+	elseif mins < 10 then
+		TimeUsed.Text = "0"..mins..":"..secs
+	else
+		TimeUsed.Text = mins..":"..secs
+	end
+until mins ==99 and secs == 99
