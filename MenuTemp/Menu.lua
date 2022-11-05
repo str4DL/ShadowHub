@@ -969,7 +969,7 @@ end)
 AutoOpen.Changed:Connect(function()
     repeat
         local args = {
-            [1] = "Legendary Chest",
+            [1] = Chests.Value,
             [2] = 1,
         }
          workspace.ItemBoughtFromShop:InvokeServer(unpack(args))
