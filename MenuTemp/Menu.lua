@@ -672,6 +672,11 @@ CreditText3.TextXAlignment = Enum.TextXAlignment.Left
 
 UIAspectRatioConstraint.Parent = Menu_2
 UIAspectRatioConstraint.AspectRatio = 1.333
+
+Close.MouseButton1Click:Connect(function()
+	Menu:Destroy()
+end)
+
 -- Dragging
 local UIS = game:GetService("UserInputService")
 
@@ -991,3 +996,20 @@ button.MouseButton1Click:Connect(function()
 	input.Text = ""
 end)
 
+local AutoOpen = createToggleOrButton("Auto Chest Opener", Mods, "Toggle")
+local Chests,Back = createDropdown("Chests",Mods,{"Common Chest","Uncommon Chest","Rare Chest", "Epic Chest", "Legendary Chest"})
+
+Back.MouseButton1Click:Connect(function()
+    Chests.Value = "Common Chest"
+end)
+
+AutoOpen.Changed:Connect(function()
+    repeat
+        local args = {
+            [1] = Chests.Value,
+            [2] = 1,
+        }
+         workspace.ItemBoughtFromShop:InvokeServer(unpack(args))
+
+    until not AutoOpen.Value
+end)
