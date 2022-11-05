@@ -788,29 +788,37 @@ UIS.InputChanged:Connect(function(input)
 	end
 end)
 -- UI
-function createToggle(name, parent, callback)
+function createToggleOrButton(name, parent, type, callback)
 	local ToggleClone = Toggle:Clone()
 	ToggleClone.Parent = parent
 	ToggleClone.Text.Text = name
 	ToggleClone.Name = name
-	local val = Instance.new("BoolValue")
-	val.Parent = ToggleClone
-	ToggleClone.Toggle.MouseButton1Click:Connect(function()
-		val.Value = not val.Value
-		if val.Value then
-			ToggleClone.Toggle.BackgroundColor3 = Color3.fromRGB(0, 255, 0)
-		else
-			ToggleClone.Toggle.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
-		end
-	end)
-	return val
+	if type == "Toggle" then
+		local val = Instance.new("BoolValue")
+		val.Parent = ToggleClone
+		ToggleClone.Toggle.MouseButton1Click:Connect(function()
+			val.Value = not val.Value
+			if val.Value then
+				ToggleClone.Toggle.BackgroundColor3 = Color3.fromRGB(0, 255, 0)
+			else
+				ToggleClone.Toggle.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+			end
+		end)
+		return val
+	else
+		ToggleClone.Toggle.BackgroundColor3 = Color3.fromRGB( 0, 0, 0)
+		ToggleClone.Toggle.MouseButton1Click:Connect(callback)
+	end
 end
 
-function createInput(name, parent)
+function createInput(name, parent, BGColor)
 	local ToggleClone = TextInput:Clone()
 	ToggleClone.Parent = parent
 	ToggleClone.TextBox.PlaceholderText = name
 	ToggleClone.Name = name
+	if BGColor then
+		ToggleClone.Toggle.BackgroundColor3 = BGColor
+	end
 	return ToggleClone.TextBox, ToggleClone.Toggle
 end
 
@@ -920,30 +928,23 @@ Credit.MouseButton1Click:Connect(function()
 end)
 
 --[[local Toggle = createToggle("Toggle", Mods)
-
 Toggle.Changed:Connect(function()
 	print(Toggle.Value)
 end)
-
 local input,button = createInput("Text Input", Mods)
-
 button.MouseButton1Click:Connect(function()
 	print(input.Text)
 end)
-
 local Option,Update = createDropdown("Dropdown", Mods, {"Opt1", "Opt2"})
-
 Update.MouseButton1Click:Connect(function()
      print(Option.Value)
 end)
-
 local Value = createSlider("Slider", Mods, 100, 500, 100)
-
 Value.Changed:Connect(function()
 	print(Value.Value)
 end)]]
 
-local AutoFarm = createToggle("Auto Farm (Speed Slider)", Mods)
+local AutoFarm = createToggleOrButton("Auto Farm (Speed Slider)", Mods, "Toggle")
 local Speed = createSlider("Speed", Mods, 1, 100, 50)
 
 AutoFarm.Changed:Connect(function()
@@ -959,7 +960,7 @@ AutoFarm.Changed:Connect(function()
 	until not AutoFarm.Value
 end)
 
-local AutoOpen = createToggle("Auto Chest Opener", Mods)
+local AutoOpen = createToggleOrButton("Auto Chest Opener", Mods, "Toggle")
 local Chests,Back = createDropdown("Chests",Mods,{"Common Chest","Uncommon Chest","Rare Chest", "Epic Chest", "Legendary Chest"})
 
 Back.MouseButton1Click:Connect(function()
@@ -976,3 +977,16 @@ AutoOpen.Changed:Connect(function()
 
     until not AutoOpen.Value
 end)
+
+local input,button = createInput("Player to teleport to", Mods, Color3.fromRGB(255,0,0))
+local TpToPlayer = createToggleOrButton("Tp to player", Mods, "Button", function ( ... )
+	if input.Text then
+		if game.Players:FindFirstChild(input.Text) then
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players:FindFirstChild(input.Text).Character.HumanoidRootPart.CFrame
+		end
+	end
+end)
+button.MouseButton1Click:Connect(function()
+	input.Text = ""
+end)
+
