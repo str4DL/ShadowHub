@@ -1010,13 +1010,14 @@ repeat
 		secs = secs + 1
 	end
 
-	if secs < 10 then
-		TimeUsed.Text = mins..":0"..secs
-	elseif secs < 10 and mins < 10 then
-		TimeUsed.Text = "0"..mins..":0"..secs
+	if secs < 10 and mins < 10 then
+		TimeUsed.Text = "Time Elapsed: 0"..mins..":0"..secs
+		
+	elseif secs < 10 then
+		TimeUsed.Text = "Time Elapsed: "..mins..":0"..secs
 	elseif mins < 10 then
-		TimeUsed.Text = "0"..mins..":"..secs
+		TimeUsed.Text = "Time Elapsed: 0"..mins..":"..secs
 	else
-		TimeUsed.Text = mins..":"..secs
+		TimeUsed.Text = "Time Elapsed: "..mins..":"..secs
 	end
 until mins ==99 and secs == 99
