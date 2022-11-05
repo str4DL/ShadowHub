@@ -432,6 +432,7 @@ ScrollingFrame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 ScrollingFrame.BackgroundTransparency = 1.000
 ScrollingFrame.Position = UDim2.new(0.5, 0, 0.639424086, 0)
 ScrollingFrame.Size = UDim2.new(1, 0, 0.709999979, 0)
+ScrollingFrame.ZIndex = 2
 
 UIListLayout_2.Parent = ScrollingFrame
 UIListLayout_2.HorizontalAlignment = Enum.HorizontalAlignment.Center
