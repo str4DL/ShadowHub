@@ -966,24 +966,6 @@ AutoFarm.Changed:Connect(function()
 	until not AutoFarm.Value
 end)
 
-local AutoOpen = createToggleOrButton("Auto Chest Opener", Mods, "Toggle")
-local Chests,Back = createDropdown("Chests",Mods,{"Common Chest","Uncommon Chest","Rare Chest", "Epic Chest", "Legendary Chest"})
-
-Back.MouseButton1Click:Connect(function()
-    Chests.Value = "Common Chest"
-end)
-
-AutoOpen.Changed:Connect(function()
-    repeat
-        local args = {
-            [1] = Chests.Value,
-            [2] = 1,
-        }
-         workspace.ItemBoughtFromShop:InvokeServer(unpack(args))
-
-    until not AutoOpen.Value
-end)
-
 local input,button = createInput("Player to teleport to", Mods, Color3.fromRGB(255,0,0))
 local TpToPlayer = createToggleOrButton("Tp to player", Mods, "Button", function ( ... )
 	if input.Text then
